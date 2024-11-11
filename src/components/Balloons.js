@@ -28,7 +28,7 @@ export default function Balloons() {
                 />
                 <img
                     className="balloon"
-                    src="/b3.png"
+                    src="/a1.png"
                     alt="Balloon B"
                     style={{
                         animationDelay: generateRandomDelay(), // Random delay for each balloon
@@ -83,6 +83,15 @@ export default function Balloons() {
                 <img
                     className="balloon"
                     src="/b9.png"
+                    alt="Balloon B"
+                    style={{
+                        animationDelay: generateRandomDelay(), // Random delay for each balloon
+                        transform: `translateX(${generateRandomHorizontalMovement()})` // Random horizontal movement
+                    }}
+                />
+                <img
+                    className="balloon"
+                    src="/a1.png"
                     alt="Balloon B"
                     style={{
                         animationDelay: generateRandomDelay(), // Random delay for each balloon

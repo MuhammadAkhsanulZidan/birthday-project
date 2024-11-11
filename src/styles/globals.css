@@ -196,3 +196,50 @@ body {
   display: none; /* Hide the fire when it's turned off */
 }
 
+/* Home.css */
+.happy-birthday-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff69b4; /* Pink color */
+  text-align: center;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Each letter has its own animation */
+.letter {
+  display: inline-block;
+  opacity: 0; /* Start with invisible */
+  animation: fadeIn 1s forwards, shake 1s ease-in-out infinite; /* Apply both fade-in and shake animations */
+}
+
+/* Fade-in effect for letters */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shake animation for dancing letters */
+@keyframes shake {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
