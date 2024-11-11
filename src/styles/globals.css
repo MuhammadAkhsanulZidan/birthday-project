@@ -1,42 +1,198 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Prevents elements from overflowing their containers */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html, body {
+  height: 100%; /* Make sure body takes full height */
+}
+/* styles/globals.css */
+.container.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-family: 'Signika', sans-serif; /* Use a modern font family */
+}
+
+.loading-text {
+  font-size: 2rem; /* Make the text bigger */
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  gap: 8px;
+  text-align: center; /* Center the text */
+}
+
+.loading-text span {
+  margin-right: 10px; /* Adjust this value to your preferred spacing */
+}
+
+/* Add this to your CSS file */
+
+/* Balloon container to hold and animate the balloons */
+.balloon-container {
+  position: fixed; /* Fixed at the bottom of the viewport */
+  bottom: 0;
+  left:   50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between; /* Distribute balloons evenly */
+  align-items: align-;
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
+  z-index: 100; /* Ensure it's above other content */
+  pointer-events: none; /* Prevent interaction with the balloons */
+  overflow: visible; /* Allow balloons to move outside the container */
+}
+
+@keyframes floatBalloon {
+  0% {
+    bottom: -150px; /* Start below the screen */
+    opacity: 1; /* Fully visible */
+    transform: translateX(0) rotate(0deg); /* No movement at the start */
+  }
+  50% {
+    bottom: 80vh; /* Float to about 80% of the screen height */
+    opacity: 0.7; /* Slightly fade out */
+    transform: translateX(30px) rotate(10deg); /* Move horizontally and rotate */
+  }
+  100% {
+    bottom: 100vh; /* Finish at the top, out of the screen */
+    opacity: 0; /* Completely fade out */
+    transform: translateX(-30px) rotate(20deg); /* End with horizontal movement and rotation */
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* Styling for each balloon image */
+.balloon {
+  position: absolute; /* Balloons positioned absolutely within the container */
+  bottom: -100px; /* Start below the viewport */
+  animation: floatBalloon 10s infinite ease-in-out;
+  width: 100px; /* Adjust the size of the balloon */
+  height: auto;
+  pointer-events: none; /* Prevent interaction with the balloons */
+  left: 50%; /* Start position */
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Randomize balloon position using nth-child */
+.balloon:nth-child(odd) {
+  left: 10%; /* Left side */
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
+.balloon:nth-child(even) {
+  left: 80%; /* Right side */
+}
+
+@media (max-width: 600px) {
+  .balloon {
+    width: 80px; /* Adjust the size for smaller screens */
+  }
+}
+
+/* Basic layout */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
   margin: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Cake container animation */
+.cake-container {
+  position: relative;
+  opacity: 0;
+  animation: slideUp 1s ease-out forwards; /* Apply the animation */
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@keyframes slideUp {
+  0% {
+    transform: translateY(100vh); /* Start below the screen */
+    opacity: 0; /* Initially invisible */
+  }
+  100% {
+    transform: translateY(0); /* Move to its normal position */
+    opacity: 1; /* Fade in */
   }
 }
+
+/* Styling for the cake (rounded square cake with top part and bottom body) */
+.cake {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background-color: #ffcc99;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align candle to the bottom of the cake */
+}
+
+/* Cake top (the top frosting) */
+.cake-top {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background-color: #ebb590; /* Frosting color */
+  border-radius: 15px 15px 0 0; /* Rounded top */
+}
+
+/* Candle design */
+.candle {
+  position: absolute;
+  bottom: 180px; /* The candle sticks out from the cake */
+  width: 20px;
+  height: 100px;
+  background-color: #ff9090;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10; /* Keep candle on top */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%);
+}
+
+/* Fire flame (initially visible) */
+.fire {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: yellow;
+  border-radius: 50%;
+  animation: flameAnimation 1s infinite ease-in-out;
+  z-index: 15; /* Keep fire above the candle */
+}
+
+/* Flame animation */
+@keyframes flameAnimation {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    background-color: yellow;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px) scale(1.2);
+    background-color: orange;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    background-color: red;
+  }
+}
+
+/* When fire is off */
+.fire.off {
+  display: none; /* Hide the fire when it's turned off */
+}
+
